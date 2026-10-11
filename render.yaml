@@ -1,0 +1,30 @@
+# Render blueprint — deploy with: New → Blueprint → point at this repo.
+# The Dockerfile bundles PHP-FPM, nginx and MariaDB into one service, so the
+# whole application (web + database) runs as a single container.
+services:
+  - type: web
+    name: amaya-log-intelligence
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health.php
+    autoDeploy: false
+    envVars:
+      - key: DB_HOST
+        value: 127.0.0.1
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        value: amaya
+      - key: DB_USER
+        value: amaya
+      - key: DB_PASS
+        generateValue: true
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: GOOGLE_ACCESS_TOKEN
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"

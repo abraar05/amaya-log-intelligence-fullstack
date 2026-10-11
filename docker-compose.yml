@@ -1,0 +1,24 @@
+# Local one-command run:
+#   docker compose up --build
+#   then open http://localhost:8080/login.php
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: amaya
+      DB_USER: amaya
+      DB_PASS: amaya_dev_password
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: AmayaDev2026
+      COOKIE_SECURE: "false"
+    volumes:
+      - amaya_db:/var/lib/mysql
+      - amaya_storage:/var/www/app/storage
+
+volumes:
+  amaya_db:
+  amaya_storage:
